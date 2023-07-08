@@ -1,10 +1,12 @@
 import fetch from 'node-fetch';
-
-const API = 'http://localhost:3000';
+import { getUsers } from './user/utils';
+import { makeUserDataLoader } from './user/dataloaders';
+import { getPosts } from './post/utils';
 
 export const context = () => {
   return {
-    getUsers: (path = '/') => fetch(`${API}/users/${path}`),
-    getPosts: (path = '/') => fetch(`${API}/posts/${path}`),
+    userDataLoader: makeUserDataLoader(getUsers(fetch)),
+    getUsers: getUsers(fetch),
+    getPosts: getPosts(fetch),
   };
 };
