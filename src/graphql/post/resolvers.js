@@ -7,11 +7,16 @@ const posts = async (_, { input }, { dataSources }) => {
   return posts;
 };
 
+const createPost = async (_, { data }, { dataSources }) => {
+  return dataSources.postApi.createPost(data);
+};
+
 const user = async ({ userId }, _, { userDataLoader }) => {
   return userDataLoader.load(userId);
 };
 
 export const postResolvers = {
   Query: { post, posts },
+  Mutation: { createPost },
   Post: { user },
 };
